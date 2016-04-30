@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UniversityResursesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Attendance">
+    <Key>
+      <PropertyRef Name="AttendanceID" />
+    </Key>
+    <Property Name="AttendanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TimetableID" Type="int" Nullable="false" />
+    <Property Name="AttendanceStatus" Type="text" Nullable="false" />
+    <Property Name="EntringTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="ExitingTime" Type="time" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CourseCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="DeviceID" />
+    </Key>
+    <Property Name="DeviceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="labID" Type="int" Nullable="false" />
+    <Property Name="DeviceName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Lab">
+    <Key>
+      <PropertyRef Name="LabID" />
+    </Key>
+    <Property Name="LabID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LabLocation" Type="nchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="TeacherID" />
+    </Key>
+    <Property Name="TeacherID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TeacherFirstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeacherLastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeacherEmail" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="TeacherPhonenum" Type="int" Nullable="false" />
+    <Property Name="TeacherTPnumber" Type="nvarchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TechnicalProblem">
+    <Key>
+      <PropertyRef Name="TechnicalProblemID" />
+    </Key>
+    <Property Name="TechnicalProblemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProblemDescription" Type="text" />
+    <Property Name="TimetableID" Type="int" />
+    <Property Name="ProblemStatus" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Timetable">
+    <Key>
+      <PropertyRef Name="TimetableID" />
+    </Key>
+    <Property Name="TimetableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TeacherID" Type="int" Nullable="false" />
+    <Property Name="CourseID" Type="int" Nullable="false" />
+    <Property Name="LabID" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Starttime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Finishtime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="TimetableStatus" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Attendance_Timetable">
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Timetable">
+        <PropertyRef Name="TimetableID" />
+      </Principal>
+      <Dependent Role="Attendance">
+        <PropertyRef Name="TimetableID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Device_Lab">
+    <End Role="Lab" Type="Self.Lab" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Device" Type="Self.Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lab">
+        <PropertyRef Name="LabID" />
+      </Principal>
+      <Dependent Role="Device">
+        <PropertyRef Name="labID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TechnicalProblem_Timetable">
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TechnicalProblem" Type="Self.TechnicalProblem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Timetable">
+        <PropertyRef Name="TimetableID" />
+      </Principal>
+      <Dependent Role="TechnicalProblem">
+        <PropertyRef Name="TimetableID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Timetable_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Timetable">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Timetable_Lab">
+    <End Role="Lab" Type="Self.Lab" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lab">
+        <PropertyRef Name="LabID" />
+      </Principal>
+      <Dependent Role="Timetable">
+        <PropertyRef Name="LabID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Timetable_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="TeacherID" />
+      </Principal>
+      <Dependent Role="Timetable">
+        <PropertyRef Name="TeacherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UniversityResursesModelStoreContainer">
+    <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lab" EntityType="Self.Lab" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TechnicalProblem" EntityType="Self.TechnicalProblem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Timetable" EntityType="Self.Timetable" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Attendance_Timetable" Association="Self.FK_Attendance_Timetable">
+      <End Role="Timetable" EntitySet="Timetable" />
+      <End Role="Attendance" EntitySet="Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Device_Lab" Association="Self.FK_Device_Lab">
+      <End Role="Lab" EntitySet="Lab" />
+      <End Role="Device" EntitySet="Device" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TechnicalProblem_Timetable" Association="Self.FK_TechnicalProblem_Timetable">
+      <End Role="Timetable" EntitySet="Timetable" />
+      <End Role="TechnicalProblem" EntitySet="TechnicalProblem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Timetable_Course" Association="Self.FK_Timetable_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="Timetable" EntitySet="Timetable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Timetable_Lab" Association="Self.FK_Timetable_Lab">
+      <End Role="Lab" EntitySet="Lab" />
+      <End Role="Timetable" EntitySet="Timetable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Timetable_Teacher" Association="Self.FK_Timetable_Teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="Timetable" EntitySet="Timetable" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

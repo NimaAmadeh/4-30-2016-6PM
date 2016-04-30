@@ -1,0 +1,71 @@
+﻿<div class="panel panel-primary"
+     ng-controller="TechnicalProblemAddCtrl">
+    <div class="panel-heading"
+         style="font-size:large">
+        Technical Problem List
+    </div>
+
+    <div class="panel-body">
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <td>Problem Description</td>
+                    <td>Timetable ID</td>
+                    <td>ProblemStatus</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="objTechnicalProblem in technicalproblems">
+                    <td>{{objTechnicalProblem.problemDescription}}</td>
+                    <td>{{objTechnicalProblem.timetableID}}</td>
+                    <td>{{objTechnicalProblem.problemStatus}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<form  ng-controller="TechnicalProblemAddCtrl" ng-submit="submit()">
+    <fieldset>
+        <legend>Technical Problem</legend>
+
+        <label class="col-md-2 contorl-label"
+               for="inputProblemDescription">Problem Description</label>
+
+        <input class="form-control"
+               id="problemDescription"
+               name="problemDescription"
+               type="text"
+               placeholder="Problem Description (required)"
+               ng-model="problemDescription"
+ />
+        <label class="col-md-2 contorl-label"
+               for="inputProblemDescription">Timetable ID</label>
+
+        <input class="form-control"
+               id="timetableID"
+               name="timetableID"
+               type="number"
+               placeholder="Timetable ID (required)"
+               ng-model="timetableID"
+ />
+        <label class="col-md-2 contorl-label"
+               for="inputProblemDescription">Problem Status</label>
+
+        <input class="form-control"
+               id="problemStatus"
+               name="problemStatus"
+               type="text"
+               placeholder="Problem Status (required)"
+               ng-model="problemStatus"
+ />
+
+       <input type="submit"  value="Save" />
+        
+    </fieldset>
+</form>
+

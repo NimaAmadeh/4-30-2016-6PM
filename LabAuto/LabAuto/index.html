@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html ng-app="LabAutoApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Lab Automated TimeTable WebApplication </title>
+
+    <!-- Style sheets -->
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+</head>
+
+<body ng-app="LabAutoApp">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div ng-include="'app/Timetable/timetableListView.html'"></div>
+        <div ng-include="'app/TechnicalProblem/technicalproblemView.html'"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <!-- Library Scripts -->
+    <script src="scripts/angular.js"></script>
+    <!--<script src="Scripts/angular.min.js"></script>-->
+    <script src="Scripts/angular-resource.js"></script>
+
+    <!-- Application Script -->
+
+    <script src="app/app.js"></script>
+
+    <!-- Services -->
+    <script src="Common/common.services.js"></script>
+    <script src="Common/timetableResource.js"></script>
+    <script src="Common/technicalproblemResources.js"></script>
+
+
+    <!-- Controllers -->
+    <!--<script src="app/Timetable/timetableListCtrl.js"></script>
+    <script src="app/TechnicalProblem/TechnicalProblemAddCtrl.js"></script>-->
+
+</body>
+
+</html>

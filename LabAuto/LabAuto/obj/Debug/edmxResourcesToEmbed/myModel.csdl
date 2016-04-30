@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UniversityResursesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Attendance">
+    <Key>
+      <PropertyRef Name="AttendanceID" />
+    </Key>
+    <Property Name="AttendanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TimetableID" Type="Int32" Nullable="false" />
+    <Property Name="AttendanceStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Timetable" Relationship="Self.FK_Attendance_Timetable" FromRole="Attendance" ToRole="Timetable" />
+    <Property Name="EntringTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="ExitingTime" Type="Time" Nullable="false" Precision="7" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CourseCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Timetables" Relationship="Self.FK_Timetable_Course" FromRole="Course" ToRole="Timetable" />
+  </EntityType>
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="DeviceID" />
+    </Key>
+    <Property Name="DeviceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="labID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Lab" Relationship="Self.FK_Device_Lab" FromRole="Device" ToRole="Lab" />
+    <Property Name="DeviceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Lab">
+    <Key>
+      <PropertyRef Name="LabID" />
+    </Key>
+    <Property Name="LabID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LabLocation" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Devices" Relationship="Self.FK_Device_Lab" FromRole="Lab" ToRole="Device" />
+    <NavigationProperty Name="Timetables" Relationship="Self.FK_Timetable_Lab" FromRole="Lab" ToRole="Timetable" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="TeacherID" />
+    </Key>
+    <Property Name="TeacherID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TeacherFirstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TeacherLastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TeacherEmail" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TeacherPhonenum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Timetables" Relationship="Self.FK_Timetable_Teacher" FromRole="Teacher" ToRole="Timetable" />
+    <Property Name="TeacherTPnumber" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TechnicalProblem">
+    <Key>
+      <PropertyRef Name="TechnicalProblemID" />
+    </Key>
+    <Property Name="TechnicalProblemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProblemDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TimetableID" Type="Int32" />
+    <Property Name="ProblemStatus" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Timetable" Relationship="Self.FK_TechnicalProblem_Timetable" FromRole="TechnicalProblem" ToRole="Timetable" />
+  </EntityType>
+  <EntityType Name="Timetable">
+    <Key>
+      <PropertyRef Name="TimetableID" />
+    </Key>
+    <Property Name="TimetableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TeacherID" Type="Int32" Nullable="false" />
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="LabID" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Starttime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Finishtime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="TimetableStatus" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Timetable" FromRole="Timetable" ToRole="Attendance" />
+    <NavigationProperty Name="Course" Relationship="Self.FK_Timetable_Course" FromRole="Timetable" ToRole="Course" />
+    <NavigationProperty Name="Lab" Relationship="Self.FK_Timetable_Lab" FromRole="Timetable" ToRole="Lab" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_Timetable_Teacher" FromRole="Timetable" ToRole="Teacher" />
+    <NavigationProperty Name="TechnicalProblems" Relationship="Self.FK_TechnicalProblem_Timetable" FromRole="Timetable" ToRole="TechnicalProblem" />
+  </EntityType>
+  <Association Name="FK_Attendance_Timetable">
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="1" />
+    <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Timetable">
+        <PropertyRef Name="TimetableID" />
+      </Principal>
+      <Dependent Role="Attendance">
+        <PropertyRef Name="TimetableID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Timetable_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Timetable">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Device_Lab">
+    <End Role="Lab" Type="Self.Lab" Multiplicity="1" />
+    <End Role="Device" Type="Self.Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lab">
+        <PropertyRef Name="LabID" />
+      </Principal>
+      <Dependent Role="Device">
+        <PropertyRef Name="labID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Timetable_Lab">
+    <End Role="Lab" Type="Self.Lab" Multiplicity="1" />
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lab">
+        <PropertyRef Name="LabID" />
+      </Principal>
+      <Dependent Role="Timetable">
+        <PropertyRef Name="LabID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Timetable_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="TeacherID" />
+      </Principal>
+      <Dependent Role="Timetable">
+        <PropertyRef Name="TeacherID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TechnicalProblem_Timetable">
+    <End Role="Timetable" Type="Self.Timetable" Multiplicity="0..1" />
+    <End Role="TechnicalProblem" Type="Self.TechnicalProblem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Timetable">
+        <PropertyRef Name="TimetableID" />
+      </Principal>
+      <Dependent Role="TechnicalProblem">
+        <PropertyRef Name="TimetableID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UniversityResursesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Attendances" EntityType="Self.Attendance" />
+    <EntitySet Name="Courses" EntityType="Self.Course" />
+    <EntitySet Name="Devices" EntityType="Self.Device" />
+    <EntitySet Name="Labs" EntityType="Self.Lab" />
+    <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+    <EntitySet Name="TechnicalProblems" EntityType="Self.TechnicalProblem" />
+    <EntitySet Name="Timetables" EntityType="Self.Timetable" />
+    <AssociationSet Name="FK_Attendance_Timetable" Association="Self.FK_Attendance_Timetable">
+      <End Role="Timetable" EntitySet="Timetables" />
+      <End Role="Attendance" EntitySet="Attendances" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Timetable_Course" Association="Self.FK_Timetable_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Timetable" EntitySet="Timetables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Device_Lab" Association="Self.FK_Device_Lab">
+      <End Role="Lab" EntitySet="Labs" />
+      <End Role="Device" EntitySet="Devices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Timetable_Lab" Association="Self.FK_Timetable_Lab">
+      <End Role="Lab" EntitySet="Labs" />
+      <End Role="Timetable" EntitySet="Timetables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Timetable_Teacher" Association="Self.FK_Timetable_Teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="Timetable" EntitySet="Timetables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TechnicalProblem_Timetable" Association="Self.FK_TechnicalProblem_Timetable">
+      <End Role="Timetable" EntitySet="Timetables" />
+      <End Role="TechnicalProblem" EntitySet="TechnicalProblems" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

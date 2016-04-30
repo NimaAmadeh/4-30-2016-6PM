@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UniversityResursesModelStoreContainer" CdmEntityContainer="UniversityResursesEntities">
+    <EntitySetMapping Name="Attendances">
+      <EntityTypeMapping TypeName="UniversityResursesModel.Attendance">
+        <MappingFragment StoreEntitySet="Attendance">
+          <ScalarProperty Name="ExitingTime" ColumnName="ExitingTime" />
+          <ScalarProperty Name="EntringTime" ColumnName="EntringTime" />
+          <ScalarProperty Name="AttendanceID" ColumnName="AttendanceID" />
+          <ScalarProperty Name="TimetableID" ColumnName="TimetableID" />
+          <ScalarProperty Name="AttendanceStatus" ColumnName="AttendanceStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="UniversityResursesModel.Course">
+        <MappingFragment StoreEntitySet="Course">
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Devices">
+      <EntityTypeMapping TypeName="UniversityResursesModel.Device">
+        <MappingFragment StoreEntitySet="Device">
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+          <ScalarProperty Name="labID" ColumnName="labID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Labs">
+      <EntityTypeMapping TypeName="UniversityResursesModel.Lab">
+        <MappingFragment StoreEntitySet="Lab">
+          <ScalarProperty Name="LabID" ColumnName="LabID" />
+          <ScalarProperty Name="LabLocation" ColumnName="LabLocation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teachers">
+      <EntityTypeMapping TypeName="UniversityResursesModel.Teacher">
+        <MappingFragment StoreEntitySet="Teacher">
+          <ScalarProperty Name="TeacherTPnumber" ColumnName="TeacherTPnumber" />
+          <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+          <ScalarProperty Name="TeacherFirstname" ColumnName="TeacherFirstname" />
+          <ScalarProperty Name="TeacherLastname" ColumnName="TeacherLastname" />
+          <ScalarProperty Name="TeacherEmail" ColumnName="TeacherEmail" />
+          <ScalarProperty Name="TeacherPhonenum" ColumnName="TeacherPhonenum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TechnicalProblems">
+      <EntityTypeMapping TypeName="UniversityResursesModel.TechnicalProblem">
+        <MappingFragment StoreEntitySet="TechnicalProblem">
+          <ScalarProperty Name="TechnicalProblemID" ColumnName="TechnicalProblemID" />
+          <ScalarProperty Name="ProblemDescription" ColumnName="ProblemDescription" />
+          <ScalarProperty Name="TimetableID" ColumnName="TimetableID" />
+          <ScalarProperty Name="ProblemStatus" ColumnName="ProblemStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timetables">
+      <EntityTypeMapping TypeName="UniversityResursesModel.Timetable">
+        <MappingFragment StoreEntitySet="Timetable">
+          <ScalarProperty Name="TimetableID" ColumnName="TimetableID" />
+          <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="LabID" ColumnName="LabID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Starttime" ColumnName="Starttime" />
+          <ScalarProperty Name="Finishtime" ColumnName="Finishtime" />
+          <ScalarProperty Name="TimetableStatus" ColumnName="TimetableStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,130 @@
+﻿<div class="panel panel-primary"
+     ng-controller="timetableListCtrl">
+    <div class="panel-heading"
+         style="font-size:large">
+        Timetable List
+    </div>
+
+    <div class="panel-body">
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <td>Lab Location</td>
+                    <td>Date</td>
+                    <td>Course Name</td>
+                    <td>Teacher Name</td>
+                    <td></td>
+                    <td>StartTime</td>
+                    <td>FinishTime</td>
+                    <td>Class Status</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="objTimetable in timetables">
+                    <td>{{objTimetable.labLocation}}</td>
+                    <td>{{objTimetable.date}}</td>
+                    <td>{{objTimetable.courseName}}</td>
+                    <td>{{objTimetable.teacherFirstname }}</td>
+                    <td>{{objTimetable.teacherLastname}}</td>
+                    <td>{{objTimetable.starttime}}</td>
+                    <td>{{objTimetable.finishtime}}</td>
+                    <td>{{objTimetable.timetableStatus}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<form ng-controller="timetableListCtrl" ng-submit="submit()">
+    <fieldset>
+        <legend>Timetable Booking</legend>
+
+        <label class="col-md-2 contorl-label"
+               for="inputTimetableBooking">TimetableBooking</label>
+
+        <input class="form-control"
+               id="teacherID"
+               name="teacherID"
+               type="number"
+               placeholder="Teacher ID (required)"
+               ng-model="teacherID" />
+
+        <label class="col-md-2 contorl-label"
+               for="inputTimetableBooking">Course ID</label>
+
+        <input class="form-control"
+               id="courseID"
+               name="courseID"
+               type="text"
+               placeholder="Course ID (required)"
+               ng-model="courseID" />
+
+        <label class="col-md-2 contorl-label"
+               for="inputTimetableBooking">Lab ID</label>
+
+        <input class="form-control"
+               id="labID"
+               name="labID"
+               type="number"
+               placeholder="Lab ID (required)"
+               ng-model="labID" />
+
+        <label class="col-md-2 contorl-label"
+               for="inputTimetableBooking">Date</label>
+
+        <input class="form-control"
+               id="date"
+               name="date"
+               type="date"
+               placeholder="Date (required)"
+               ng-model="date" />
+
+
+        <label class="col-md-2 contorl-label"
+               for="inputTimetableBooking">Start Time</label>
+
+        <input class="form-control"
+               id="startTime"
+               name="startTime"
+               type="time"
+               placeholder="Start time (required)"
+               ng-model="startTime" />
+
+        <label class="col-md-2 contorl-label"
+               for="inputTimetableBooking">Finish Time</label>
+
+        <input class="form-control"
+               id="finishTime"
+               name="finishTime"
+               type="time"
+               placeholder="Finish time (required)"
+               ng-model="finishTime" />
+
+        <label class="col-md-2 contorl-label"
+               for="inputTimetableBooking">Timetable Status</label>
+
+        <input class="form-control"
+               id="timetableStatus"
+               name="timetableStatus"
+               type="number"
+               placeholder="Timetable Status(required)"
+               ng-model="timetableStatus" />
+
+        <input type="submit" value="Save" />
+
+    </fieldset>
+</form>
+
+<fieldset>
+    <form class="form-login" ng-controller="timetableListCtrl" role="form" data-ng-click="login()">
+        <h2 class="form-login-heading">Login</h2>
+        <input type="text" class="form-control" placeholder="TPNumber" data-ng-model="loginData.userName" required autofocus>
+        <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="login()">Login</button>
+        <div data-ng-hide="message == ''" class="alert alert-danger">
+            {{message}}
+        </div>
+    </form>
+    <</fieldset>>
